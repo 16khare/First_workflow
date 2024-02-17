@@ -17,7 +17,8 @@ jobs:
       - name: Sleep for 30 Seconds
         run: sleep 30
 
-    test-job:
+    test_job:
+      needs: build_job
       runs-on: ubuntu-latest
       steps:
       - name: Sleep for 10 seconds
@@ -26,9 +27,10 @@ jobs:
       - name: Test file exist
         run: grep -i "dragon" dragon.txt
 
-    deploy-job:
+    deploy_job:
+      needs: test_job
       runs-on: ubuntu-latest
       steps:
       - name: Deploy
         run: echo Deploying... ... ... 
-        
+
