@@ -5,23 +5,30 @@ on:
     push
 
 jobs:
-    ascii_job:
-        runs-on: ubuntu-latest
-        steps:
-        - name: Checkout Repo
-          uses: actions/checkout@v4
+    build_job:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Install Cowsay Program
+        run: sudo apt-get install cowsay -y
 
-        - name: Install Cowsay Program
-          run: sudo apt-get install cowsay -y
+      - name: Execute Cowsay CMD
+        run: cowsay -f dragon "Run for Cover" >> dragon.txt
 
-        - name: Execute Cowsay CMD
-          run: cowsay -f dragon "Run for cover, I am a DRAGON.....RAWR" >> dragon.txt
+      - name: Sleep for 30 Seconds
+        run: sleep 30
 
-        - name: Test File exists
-          run: grep -i "dragon" dragon.txt
+    test-job:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Sleep for 10 seconds
+        run: sleep 10
 
-        - name: Read file
-          run: cat dragon.txt
+      - name: Test file exist
+        run: grep -i "dragon" dragon.txt
 
-        - name: list Repo Files
-          run: ls -ltra
+    deploy-job:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Deploy
+        run: echo Deploying... ... ... 
+        
